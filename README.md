@@ -135,7 +135,7 @@ To properly convert TSV to CSV using `quote_all`:
     BEGIN { VS = "\t"
             OFS = "," }
     {
-        quote_all(OFS)  # re-quote when necessary
+        dsv_quote_fields(OFS)  # re-quote when necessary
         print
     }
 
@@ -150,7 +150,7 @@ To force-quote all values of a CSV record:
 
     BEGIN { OFS = VS }
     {
-        quote_all()  # no output separator given; will quote any value
+        dsv_quote_fields()  # no output separator given; will quote any value
         print
     }
 
