@@ -49,7 +49,7 @@ with [RFC4180]):
 You can use `dsv.awk` as a template for new Awk programs. Or you can combine it
 with existing programs:
 
-    awk -f dsv.awk -f script.awk ...      # at runtime, with awk's own -f option
+    awk -f dsv.awk -f script.awk ...      # at runtime with awk's own -f option
     cat dsv.awk script.awk | awk -f- ...  # by concatenation
 
 You can put actions both before and after `dsv.awk`:
@@ -93,8 +93,8 @@ Quotes and escapes all field variables in-place where necessary.
 
 ### `dsv_read_fields()`
 
-Reads a DSV record into field variables. **This operation is
-implicit in `dsv.awk`.**
+Reads a DSV record into field variables. **This operation is implicit in
+`dsv.awk`.**
 
 It consumes a full DSV record at a time, not necessarily a single line.
 
@@ -109,9 +109,8 @@ To ignore empty lines and comment lines, _prepend_:
     # Skip empty lines and lines starting with '#'.
     $0 == "" || /^#/ { next }
 
-This change requires that records with one empty field be encoded as `""`.
-
-Normally, all lines are records. Empty records contain one empty field.
+Normally, all lines are records. Empty records contain one empty field. This
+change requires that records with one empty field be encoded as `""`.
 
 To ensure that all records are the same length, append:
 
@@ -130,7 +129,7 @@ To sloppily convert TSV to CSV:
             OFS = "," }
     1  # cute but never quotes values
 
-To properly convert TSV to CSV using `quote_all`:
+To properly convert TSV to CSV using `dsv_quote_fields()`:
 
     BEGIN { VS = "\t"
             OFS = "," }
@@ -168,11 +167,11 @@ they appear in the source.
 
 Another way is the `-v` option:
 
-        awk -v VS=: -f dsv.awk ...
+    awk -v VS=: -f dsv.awk ...
 
 Yet another are assignment arguments:
 
-        awk -f dsv.awk ... VS=: ...
+    awk -f dsv.awk ... VS=: ...
 
 See the [awk(1)] manual for details.
 
@@ -189,6 +188,6 @@ general and unambiguous.
 
 ## Copying
 
-The code in this repository is free to use and modify but comes with no
-warranties. Credit is appreciated although not required. See
+The code in this repository is free to copy, modify and distribute but comes
+with no warranties. Credit is appreciated although not required. See
 [COPYING](./COPYING).
